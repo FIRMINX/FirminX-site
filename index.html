@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>FirminX - Mon site</title>
+<style>
+  body { 
+    margin:0; 
+    font-family: Arial, sans-serif; 
+    background-color:#0e0e0e; 
+    color:#fff; 
+  }
+  header { 
+    background:#111; 
+    padding:20px; 
+    text-align:center; 
+    border-bottom:2px solid #0ff; 
+  }
+  header h1 { 
+    color:#0ff; 
+    margin:0; 
+  }
+  nav { 
+    display:flex; 
+    justify-content:center; 
+    margin:20px 0; 
+  }
+  nav button { 
+    margin:0 10px; 
+    padding:10px 20px; 
+    border:none; 
+    border-radius:10px; 
+    background:#222; 
+    color:#fff; 
+    cursor:pointer; 
+    transition:0.3s; 
+  }
+  nav button:hover { background:#0ff; color:#000; }
+  .projects { 
+    display:flex; 
+    flex-wrap:wrap; 
+    justify-content:center; 
+    gap:20px; 
+    padding:0 20px 50px 20px; 
+  }
+  .card { 
+    background:#111; 
+    border:2px solid #0ff; 
+    border-radius:15px; 
+    width:250px; 
+    padding:15px; 
+    transition:0.3s; 
+  }
+  .card:hover { transform:scale(1.05); }
+  .card img { 
+    width:100%; 
+    border-radius:10px; 
+  }
+  .bot { 
+    background:#111; 
+    border:2px solid #0ff; 
+    border-radius:15px; 
+    max-width:600px; 
+    margin:20px auto; 
+    padding:20px; 
+  }
+  .bot #chat { 
+    max-height:300px; 
+    overflow-y:auto; 
+    margin-bottom:10px; 
+  }
+  .bot-message { 
+    background:#222; 
+    padding:10px; 
+    margin:5px 0; 
+    border-radius:10px; 
+    color:#fff; 
+  }
+  .bot input { 
+    width:calc(100% - 20px); 
+    padding:10px; 
+    border-radius:10px; 
+    border:none; 
+    outline:none; 
+    font-size:16px; 
+    background:#222; 
+    color:#fff; 
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>FirminX - Projets et Bot F-800</h1>
+</header>
+
+<nav>
+  <button onclick="showSection('projects')">Projets</button>
+  <button onclick="showSection('bot')">Démo Bot</button>
+  <button onclick="showSection('about')">À propos</button>
+</nav>
+
+<section id="projects" class="projects">
+  <div class="card">
+    <img src="https://via.placeholder.com/250x150.png?text=PS2+Game" alt="Projet PS2">
+    <h3>Jeu PS2</h3>
+    <p>Projets et images de jeux PS2 interactifs.</p>
+  </div>
+  <div class="card">
+    <img src="https://via.placeholder.com/250x150.png?text=PSP+Game" alt="Projet PSP">
+    <h3>Jeu PSP</h3>
+    <p>Projets et images de jeux PSP interactifs.</p>
+  </div>
+</section>
+
+<section id="bot" class="bot" style="display:none;">
+  <div id="chat"></div>
+  <input type="text" id="userInput" placeholder="Pose une question au F-800..." onkeydown="if(event.key==='Enter'){sendMessage();}">
+</section>
+
+<section id="about" style="display:none; text-align:center; padding:20px;">
+  <h2>À propos de FirminX</h2>
+  <p>Pseudo : FirminX</p>
+  <p>Projets : Jeux PS2 / PSP, Démo bot F-800, Sites web futuristes</p>
+  <p>Contact : firminx@example.com</p>
+</section>
+
+<script>
+function showSection(id){
+  document.querySelectorAll('section').forEach(sec=>sec.style.display='none');
+  document.getElementById(id).style.display='block';
+}
+
+// Simuler le bot F-800
+function sendMessage(){
+  const input = document.getElementById('userInput');
+  const chat = document.getElementById('chat');
+  const msg = input.value.trim();
+  if(!msg) return;
+  const userDiv = document.createElement('div');
+  userDiv.textContent = 'Toi : ' + msg;
+  userDiv.className = 'bot-message';
+  chat.appendChild(userDiv);
+  input.value = '';
+
+  setTimeout(()=>{
+    const botDiv = document.createElement('div');
+    botDiv.textContent = 'F-800 : ' + generateReply(msg);
+    botDiv.className = 'bot-message';
+    chat.appendChild(botDiv);
+    chat.scrollTop = chat.scrollHeight;
+  }, 500 + Math.random()*500);
+}
+
+// Réponses simulées
+function generateReply(msg){
+  msg = msg.toLowerCase();
+  if(msg.includes('ps2')) return 'La PS2 est une console légendaire 🕹️.';
+  if(msg.includes('psp')) return 'La PSP : jeux portables futuristes !';
+  if(msg.includes('salut')) return 'Salut FirminX 😎 !';
+  if(msg.includes('bot')) return 'Je suis F-800, ton bot futuriste.';
+  return '🤖 Je réfléchis... mais je ne sais pas encore répondre à ça.';
+}
+</script>
+
+</body>
+</html>
